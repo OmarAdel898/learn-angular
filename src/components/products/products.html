@@ -1,12 +1,15 @@
 <div class="products-grid">
   @for (product of products; track product.name) {
-    <div class="product-card">
-      <img [src]="product.image" alt="img" class="product-image" />
+    <div class="product-card position-relative">
+      <div class="position-absolute top-0 start-0" [class]="product.inStock?'badge bg-success':'badge bg-danger'">
+        {{product.inStock?'In Stock':'Out of Stock'}}
+      </div>
+      <img [src]="product.image" [alt]="product.name" class="product-image" />
       <div class="product-info">
         <h3 class="product-name">{{product.name}}</h3>
-        <p class="product-price">${{product.price}}</p>
+        <p class="product-price" [class]="product.price>100?'text-danger':'text-success'">${{product.price}}</p>
       </div>
-      <button class="btn btn-primary m-2 add-to-cart-btn">Add to Cart</button>
+      <button class="btn btn-primary m-2 add-to-cart-btn" [disabled]="!product.inStock">Add to Cart</button>
     </div>
   }
 </div>
